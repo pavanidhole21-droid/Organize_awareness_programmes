@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAGRUK — Community Awareness & Action Network</title>
+  <meta name="description" content="JAGRUK turns community awareness into coordinated, measurable local action. Report local issues, volunteer for community drives, and track verified impact.">
+
+  <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Safety Boundary: Emergency Banner (PRD Section 3 & 15) -->
+  <aside class="emergency-banner" role="alert">
+    <span>⚠️ <strong>Non-Emergency Platform:</strong> JAGRUK is for civic volunteering and community awareness. In case of life-threatening emergencies or crime, call emergency services immediately: Police <strong>100</strong> | Ambulance <strong>108</strong> | National Emergency <strong>112</strong>.</span>
+  </aside>
+
+  <!-- Main Navigation Bar -->
+  <header>
+    <nav class="navbar" aria-label="Main Navigation">
+      <div class="brand-container" id="navBrand" onclick="switchView('home')">
+        <div class="brand-logo-icon">J</div>
+        <div class="brand-text">
+          <h1>JAGRUK</h1>
+          <p id="brandTagline">Don't Just Spread Awareness. Create Action.</p>
+        </div>
+      </div>
+
+      <ul class="nav-links">
+        <li><button class="nav-link-btn active" id="nav-home" onclick="switchView('home')">🏠 <span data-i18n="nav_home">Home</span></button></li>
+        <li><button class="nav-link-btn" id="nav-panindia" onclick="switchView('panindia')">🇮🇳 <span data-i18n="nav_panindia">Pan-India Hub</span> <span class="nav-pill-badge">Live</span></button></li>
+        <li><button class="nav-link-btn" id="nav-explore" onclick="switchView('explore')">🔍 <span data-i18n="nav_explore">Explore Activities</span></button></li>
+        <li><button class="nav-link-btn" id="nav-needs" onclick="switchView('needs')">📋 <span data-i18n="nav_needs">Need Board</span></button></li>
+        <li><button class="nav-link-btn" id="nav-report" onclick="switchView('report')">📢 <span data-i18n="nav_report">Report a Need</span></button></li>
+        <li><button class="nav-link-btn" id="nav-organizer" onclick="switchView('organizer')">⚡ <span data-i18n="nav_organizer">Organizer Desk</span></button></li>
+        <li><button class="nav-link-btn" id="nav-moderator" onclick="switchView('moderator')">🛡️ <span data-i18n="nav_moderator">Moderator Console</span></button></li>
+        <li><button class="nav-link-btn" id="nav-impact" onclick="switchView('impact')">📊 <span data-i18n="nav_impact">Impact Ledger</span></button></li>
+      </ul>
+
+      <div class="nav-controls">
+        <!-- Persona Switcher -->
+        <div class="persona-badge" title="Switch your active role for this session">
+          <span id="personaIcon">👤</span>
+          <select id="personaSelect" class="persona-select" onchange="changePersona(this.value)">
+            <option value="resident">Resident / Citizen</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="organizer">Organizer</option>
+            <option value="moderator">Moderator / Admin</option>
+          </select>
+        </div>
+
+        <!-- Language Selector (EN, MR, HI) -->
+        <div class="persona-badge" title="Language selection">
+          <span>🌐</span>
+          <select id="languageSelect" class="lang-select" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="mr">मराठी (Marathi)</option>
+            <option value="hi">हिंदी (Hindi)</option>
+          </select>
+        </div>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+
+        <!-- 60-second Demo Walkthrough button -->
+        <button class="btn-demo-tour" onclick="startDemoTour()" title="Play guided 60-second demo script">🎬 Demo Tour</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ==================== VIEW 1: HOME ==================== -->
+    <section id="view-home" class="view-section active">
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-tag">🌱 CEP Community Engagement Project — Suryodaya College</div>
+        <h2 class="hero-title">From Local Awareness to <span>Measurable Action</span></h2>
+        <p class="hero-subtitle" data-i18n="hero_desc">
+          JAGRUK connects community needs with local student groups, volunteers, and NGOs. Report issues, convert needs into campaigns, participate safely, and inspect verified impact records.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="switchView('report')">📢 <span data-i18n="cta_report">Report a Community Need</span></button>
+          <button class="btn btn-secondary btn-lg" onclick="switchView('explore')">🤝 <span data-i18n="cta_join">Volunteer for an Activity</span></button>
+          <button class="btn btn-accent btn-lg" onclick="switchView('impact')">📈 <span data-i18n="cta_ledger">View Verified Impact</span></button>
+        </div>
+      </div>
+
+      <!-- Quick KPI Strip (FR-11, Impact Ledger) -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon teal">🎯</div>
+          <div class="kpi-content">
+            <h3 id="stat-camps-count">4</h3>
+            <p data-i18n="kpi_camps">Completed Campaigns</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon amber">👥</div>
+          <div class="kpi-content">
+            <h3 id="stat-people-count">185+</h3>
+            <p data-i18n="kpi_citizens">Citizens Reached</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon emerald">🤝</div>
+          <div class="kpi-content">
+            <h3 id="stat-volunteers-count">64</h3>
+            <p data-i18n="kpi_volunteers">Active Volunteers</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon indigo">⚖️</div>
+          <div class="kpi-content">
+            <h3 id="stat-waste-count">540 kg</h3>
+            <p data-i18n="kpi_waste">Waste Safely Removed</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Awareness to Action Workflow Explainer -->
+      <div class="workflow-strip">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">🔄 The Awareness-to-Action Lifecycle</h3>
+            <p class="section-desc">How JAGRUK bridges the gap between seeing a problem and fixing it sustainably.</p>
+          </div>
+          <span class="badge badge-accepted">CEP Proven Workflow</span>
+        </div>
+        <div class="workflow-steps">
+          <div class="step-item">
+            <span class="step-num">Step 1</span>
+            <h4>Report a Need</h4>
+            <p>Residents submit non-emergency issues with approximate area & optional photo.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">Step 2</span>
+            <h4>Moderator Reviews</h4>
+            <p>Validates report, detects duplicates, redacts sensitive info, and approves for action.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">Step 3</span>
+            <h4>Organizer Creates Campaign</h4>
+            <p>Converts verified report into an organized activity with goals and capacity limits.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">Step 4</span>
+            <h4>Volunteer & Act</h4>
+            <p>Community members register, check-in with digital passes, and execute the drive.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">Step 5</span>
+            <h4>Verified Impact</h4>
+            <p>Outcomes, photos & metrics are submitted, moderator-approved, and posted to public ledger.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pan-India Expansion Banner (FR-13) -->
+      <div class="home-panindia-banner">
+        <div style="max-width: 650px;">
+          <span class="panindia-badge-tag">🇮🇳 Pan-India Citizen Action Network</span>
+          <h3 style="font-family:var(--font-heading); font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:0.4rem;">
+            From Nagpur to Assam Tea Plantations: Join Campaigns & Upload Photos Nationwide
+          </h3>
+          <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.5;">
+            Whether planting tea in Assam, organizing eco-camps in Munnar, or cleaning in Nagpur, people all over India can now join campaigns and upload real-time action photos to our verified citizen gallery!
+          </p>
+        </div>
+        <div style="display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="switchView('panindia')">🇮🇳 View All-India Hub</button>
+          <button class="btn btn-accent" onclick="openUploadPhotoModal()">📸 Upload Campaign Photo</button>
+        </div>
+      </div>
+
+      <!-- Featured Upcoming Activities -->
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">🔥 Featured Community Activities</h3>
+          <p class="section-desc">Upcoming volunteer drives open for registration.</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">View All Activities →</button>
+      </div>
+      <div class="card-grid" id="homeFeaturedGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: EXPLORE ACTIVITIES ==================== -->
+    <section id="view-explore" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🔍 Explore Volunteer Activities</h2>
+          <p class="section-desc">Find verified community campaigns in your local neighborhood and join as a volunteer.</p>
+        </div>
+        <button class="btn btn-primary" onclick="switchView('report')">📢 Report a New Need</button>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="filters-bar">
+        <div class="filter-group" id="campaignCategoryFilters">
+          <button class="filter-chip active" onclick="filterCampaigns('all')">All Categories</button>
+          <button class="filter-chip" onclick="filterCampaigns('Cleanliness')">🧹 Cleanliness & Waste</button>
+          <button class="filter-chip" onclick="filterCampaigns('Health')">🩺 Health & Hygiene</button>
+          <button class="filter-chip" onclick="filterCampaigns('Safety')">💡 Safety & Streetlight</button>
+          <button class="filter-chip" onclick="filterCampaigns('Environment')">🌳 Greenery</button>
+        </div>
+        <input type="text" id="campaignSearchInput" class="search-input" placeholder="Search by area or title..." oninput="searchCampaigns(this.value)">
+      </div>
+
+      <!-- Campaigns Grid -->
+      <div class="card-grid" id="exploreCampaignsGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: NEED BOARD ==================== -->
+    <section id="view-needs" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">📋 Local Need Board</h2>
+          <p class="section-desc">Issues submitted by residents. Moderators group duplicates and approved organizers convert them into active campaigns.</p>
+        </div>
+        <button class="btn btn-primary" onclick="switchView('report')">+ Submit a Need</button>
+      </div>
+
+      <!-- Status Filter Tabs -->
+      <div class="filters-bar">
+        <div class="filter-group" id="needStatusFilters">
+          <button class="filter-chip active" onclick="filterNeeds('all')">All Reports</button>
+          <button class="filter-chip" onclick="filterNeeds('under_review')">⏳ Under Review</button>
+          <button class="filter-chip" onclick="filterNeeds('accepted')">✅ Accepted Needs</button>
+          <button class="filter-chip" onclick="filterNeeds('converted_to_campaign')">🚀 In Action / Campaign</button>
+          <button class="filter-chip" onclick="filterNeeds('resolved')">🎉 Resolved</button>
+          <button class="filter-chip" onclick="filterNeeds('duplicate')">🔗 Merged Duplicates</button>
+        </div>
+        <span class="badge badge-under_review" id="needsCountBadge">Loading...</span>
+      </div>
+
+      <div class="card-grid" id="needsBoardGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: REPORT A NEED ==================== -->
+    <section id="view-report" class="view-section">
+      <div class="form-card">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">📢 Report a Community Need</h2>
+            <p class="section-desc">Report an issue affecting your neighborhood. Only approximate area is published to safeguard your privacy.</p>
+          </div>
+          <span class="badge badge-under_review">Non-Emergency</span>
+        </div>
+
+        <form id="reportForm" onsubmit="handleReportSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Category <span class="required">*</span></label>
+            <select id="reportCategory" class="form-select" required>
+              <option value="">Select an issue category</option>
+              <option value="Cleanliness">🧹 Waste Accumulation / Public Cleanliness</option>
+              <option value="Health">🩺 Health Awareness / Stagnant Water / Sanitation</option>
+              <option value="Safety">💡 Streetlight / Dark Spots / Safety Hazard</option>
+              <option value="Environment">🌳 Tree Plantation / Greenery / Public Park Care</option>
+              <option value="Infrastructure">🚰 Public Water Tap / Broken Bench / Pathway</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Title of Issue <span class="required">*</span></label>
+            <input type="text" id="reportTitle" class="form-control" placeholder="e.g. Uncollected plastic waste dump near bus shelter" required maxlength="120">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Approximate Area / Landmark <span class="required">*</span></label>
+              <input type="text" id="reportArea" class="form-control" placeholder="e.g. Dighori Square, near Shiv Mandir" required>
+              <p class="form-hint">🔒 Privacy Notice: Do NOT provide your exact home flat or private house number.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Name / Pseudonym</label>
+              <input type="text" id="reportAuthor" class="form-control" placeholder="e.g. Concerned Resident" value="Concerned Resident">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Detailed Description <span class="required">*</span></label>
+            <textarea id="reportDesc" class="form-textarea" rows="3" placeholder="Explain the situation, how long it has been unresolved, and how it impacts the locality..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Optional Photo Evidence</label>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSamplePhoto('waste')">📷 Sample Waste Dump</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSamplePhoto('lamp')">📷 Broken Lamp</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSamplePhoto('puddle')">📷 Water Stagnation</button>
+            </div>
+            <input type="url" id="reportPhotoUrl" class="form-control" placeholder="Paste image URL (or use preset buttons above)">
+          </div>
+
+          <!-- Consent & Non-Emergency Checkboxes (PRD FR-02, FR-12) -->
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="consentNonEmergency" required>
+              <label for="consentNonEmergency">
+                <strong>I understand this is NOT an emergency dispatch service.</strong> If immediate intervention is required, I will contact official emergency helplines.
+              </label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="consentPrivacy" required>
+              <label for="consentPrivacy">
+                <strong>Privacy & Consent:</strong> I confirm this report does not contain private home addresses, phone numbers, or target private individuals without consent.
+              </label>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+            <button type="button" class="btn btn-secondary" onclick="switchView('home')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Report for Moderation 🚀</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 5: ORGANIZER DESK ==================== -->
+    <section id="view-organizer" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">⚡ Organizer Management Desk</h2>
+          <p class="section-desc">Create volunteer drives from accepted community needs, manage attendance rosters, and publish evidence-based impact reports.</p>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn btn-primary" onclick="openCreateCampaignModal()">+ Create New Campaign</button>
+        </div>
+      </div>
+
+      <!-- Quick Organizer Tip -->
+      <div class="workflow-strip" style="padding: 1rem 1.25rem; margin-bottom:1.5rem; border-left: 4px solid var(--accent-amber);">
+        <strong>💡 Awareness-to-Action Pro-Tip:</strong> Check the Need Board for <em>Accepted Needs</em> submitted by residents and click <strong>"Convert to Campaign"</strong> to address genuine verified community demands.
+      </div>
+
+      <!-- Active Campaigns Table -->
+      <h3 style="margin-bottom: 0.75rem; font-size:1.15rem;">Your Organized Campaigns</h3>
+      <div class="table-container" style="margin-bottom: 2rem;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Campaign</th>
+              <th>Category</th>
+              <th>Area</th>
+              <th>Date & Time</th>
+              <th>Capacity</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="organizerCampaignsTableBody">
+            <!-- Injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Attendance Check-In Panel (FR-07) -->
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">📲 On-Day Volunteer Check-in Roster</h3>
+          <p class="section-desc">Scan or enter volunteer digital ticket codes or mark attendance directly.</p>
+        </div>
+      </div>
+      <div class="filters-bar" style="margin-bottom:1rem;">
+        <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; width:100%;">
+          <select id="rosterCampaignSelect" class="form-select" style="max-width:320px;" onchange="loadRoster(this.value)">
+            <!-- Populated dynamically -->
+          </select>
+          <input type="text" id="ticketCheckinInput" class="search-input" placeholder="Enter Ticket Code (e.g. JAG-2948)...">
+          <button class="btn btn-accent btn-sm" onclick="checkinByTicketCode()">Check-In Code</button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ticket #</th>
+              <th>Volunteer Name</th>
+              <th>Role / Persona</th>
+              <th>Registration Time</th>
+              <th>Check-in Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="rosterTableBody">
+            <!-- Injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 6: MODERATOR CONSOLE ==================== -->
+    <section id="view-moderator" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🛡️ Moderator & Ethics Console</h2>
+          <p class="section-desc">Review submitted community needs, merge duplicate reports, redact private data, and verify outcome reports for the Impact Ledger.</p>
+        </div>
+        <span class="badge badge-accepted">Admin Role Active</span>
+      </div>
+
+      <!-- Sub-tabs: Reports Review Queue vs Impact Approvals vs Audit Log -->
+      <div class="filters-bar">
+        <div class="filter-group">
+          <button class="filter-chip active" id="modTabReportsBtn" onclick="switchModTab('reports')">Pending Needs Queue (<span id="modPendingCount">0</span>)</button>
+          <button class="filter-chip" id="modTabImpactBtn" onclick="switchModTab('impact')">Impact Ledger Approvals (<span id="modImpactPendingCount">0</span>)</button>
+          <button class="filter-chip" id="modTabAuditBtn" onclick="switchModTab('audit')">System Audit Trail</button>
+        </div>
+      </div>
+
+      <!-- Tab 1: Reports Moderation Queue -->
+      <div id="modSectionReports">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Submitted</th>
+                <th>Category</th>
+                <th>Title & Description</th>
+                <th>Area Label</th>
+                <th>Status</th>
+                <th>Moderation Decision</th>
+              </tr>
+            </thead>
+            <tbody id="moderatorNeedsTableBody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Impact Report Verification Queue (Trust & Evidence Workflow) -->
+      <div id="modSectionImpact" style="display:none;">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Campaign</th>
+                <th>Submitted By</th>
+                <th>Attendees</th>
+                <th>Measured Output (Before → After)</th>
+                <th>Summary & Evidence</th>
+                <th>Review Action</th>
+              </tr>
+            </thead>
+            <tbody id="moderatorImpactTableBody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Audit Trail Log (FR-11) -->
+      <div id="modSectionAudit" style="display:none;">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>Target Entity</th>
+                <th>Reason / Notes</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 7: IMPACT LEDGER ==================== -->
+    <section id="view-impact" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">📊 Community Verified Impact Ledger</h2>
+          <p class="section-desc">Evidence-based records of completed activities. Only moderator-approved outcomes with verifiable metrics are posted here.</p>
+        </div>
+        <span class="badge badge-verified">🛡️ 100% Evidence Checked</span>
+      </div>
+
+      <!-- Aggregate Impact Banner -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon teal">✅</div>
+          <div class="kpi-content">
+            <h3 id="ledgerCompletedCount">4</h3>
+            <p>Verified Activities</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon emerald">⚖️</div>
+          <div class="kpi-content">
+            <h3 id="ledgerWasteCount">540 kg</h3>
+            <p>Plastic & Waste Cleared</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon amber">🌱</div>
+          <div class="kpi-content">
+            <h3 id="ledgerSaplingsCount">85</h3>
+            <p>Native Trees Planted</p>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon indigo">⭐</div>
+          <div class="kpi-content">
+            <h3 id="ledgerFeedbackScore">4.8 / 5</h3>
+            <p>Community Trust Score</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Visual Analytics & Comparison Barometer -->
+      <div class="impact-analytics-panel">
+        <div class="analytics-header">
+          <div>
+            <h3 class="analytics-title">📈 Measurable Change Barometer</h3>
+            <p class="analytics-desc">Comparing measured baseline conditions vs verified outcomes across completed community drives.</p>
+          </div>
+          <!-- Chart Category Filter Chips -->
+          <div class="filter-bar" id="impactChartFilters">
+            <button class="filter-chip active" onclick="filterImpactChart('all', this)">All Initiatives</button>
+            <button class="filter-chip" onclick="filterImpactChart('waste', this)">⚖️ Waste Cleared</button>
+            <button class="filter-chip" onclick="filterImpactChart('plantation', this)">🌱 Trees & Saplings</button>
+            <button class="filter-chip" onclick="filterImpactChart('safety', this)">💡 Safety & Dark Spots</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Chart Rendering Container -->
+        <div class="impact-chart-container" id="impactChartContainer">
+          <!-- Dynamically populated with comparison bars via renderImpactChart() -->
+        </div>
+
+        <!-- Pilot Target Attainment Summary Strip -->
+        <div class="scorecard-strip">
+          <div class="scorecard-item">
+            <span class="scorecard-val">100%</span>
+            <span class="scorecard-label">Evidence Verification Rate</span>
+          </div>
+          <div class="scorecard-item">
+            <span class="scorecard-val">95.4%</span>
+            <span class="scorecard-label">Overall Goal Attainment</span>
+          </div>
+          <div class="scorecard-item">
+            <span class="scorecard-val">91.8%</span>
+            <span class="scorecard-label">Volunteer Check-in Rate</span>
+          </div>
+          <div class="scorecard-item">
+            <span class="scorecard-val" id="scorecardFeedback">4.9 / 5</span>
+            <span class="scorecard-label">Post-Drive Trust Score</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ledger Cards Grid -->
+      <div class="card-grid" id="impactLedgerGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 8: PAN-INDIA CAMPAIGNS & PHOTO WALL ==================== -->
+    <section id="view-panindia" class="view-section">
+      <!-- Pan-India Hero Banner -->
+      <div class="panindia-hero">
+        <span class="panindia-badge-tag">🇮🇳 Nationwide Expansion • CEP Project</span>
+        <h2>All-India Mega Campaigns & Live Photo Wall</h2>
+        <p>
+          Environmental action knows no borders. Discover active campaigns across India—from Assam tea plantations and Munnar eco-camps to Nagpur native afforestation. Join as a volunteer and upload your live impact photos to inspire the entire nation!
+        </p>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn btn-accent btn-lg" onclick="openUploadPhotoModal()">📸 Upload Campaign Photo</button>
+          <button class="btn btn-secondary btn-lg" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4);" onclick="openCreateCampaignModal()">+ Launch Drive in Your State</button>
+        </div>
+
+        <!-- Pan-India National Stats Barometer -->
+        <div class="panindia-stats-bar">
+          <div class="panindia-stat-item">
+            <span class="stat-icon">🗺️</span>
+            <div>
+              <div class="stat-val" id="pi-stat-states">8 States</div>
+              <div class="stat-label">Active Across India</div>
+            </div>
+          </div>
+          <div class="panindia-stat-item">
+            <span class="stat-icon">🍃</span>
+            <div>
+              <div class="stat-val" id="pi-stat-tea">4,200+</div>
+              <div class="stat-label">Tea & Tree Saplings</div>
+            </div>
+          </div>
+          <div class="panindia-stat-item">
+            <span class="stat-icon">📸</span>
+            <div>
+              <div class="stat-val" id="pi-stat-photos">0</div>
+              <div class="stat-label">Citizen Action Photos</div>
+            </div>
+          </div>
+          <div class="panindia-stat-item">
+            <span class="stat-icon">👥</span>
+            <div>
+              <div class="stat-val" id="pi-stat-volunteers">350+</div>
+              <div class="stat-label">Registered Volunteers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive State Filter Bar -->
+      <div class="section-header" style="margin-bottom:0.5rem;">
+        <div>
+          <h3 class="section-title">📍 Select State / Region Across India</h3>
+          <p class="section-desc">Filter activities and citizen photos by Indian state or union territory.</p>
+        </div>
+      </div>
+      <div class="india-states-bar" id="panIndiaStateChips">
+        <button class="state-chip active" onclick="filterPanIndiaState('all')">🇮🇳 All India</button>
+        <button class="state-chip" onclick="filterPanIndiaState('Assam')">🌱 Assam (Tea Belt)</button>
+        <button class="state-chip" onclick="filterPanIndiaState('Maharashtra')">🍊 Maharashtra (Nagpur/Pune)</button>
+        <button class="state-chip" onclick="filterPanIndiaState('Kerala')">⛰️ Kerala (Munnar)</button>
+        <button class="state-chip" onclick="filterPanIndiaState('West Bengal')">🍵 West Bengal (Darjeeling)</button>
+        <button class="state-chip" onclick="filterPanIndiaState('Karnataka')">🌳 Karnataka (Bengaluru)</button>
+        <button class="state-chip" onclick="filterPanIndiaState('Uttarakhand')">🏔️ Uttarakhand (Rishikesh)</button>
+        <button class="state-chip" onclick="filterPanIndiaState('Delhi-NCR')">🏛️ Delhi-NCR</button>
+      </div>
+
+      <!-- Sub-Tabs: Photo Wall vs Campaigns Directory -->
+      <div class="view-subtabs">
+        <button class="subtab-btn active" id="subtabPhotoWallBtn" onclick="switchPanIndiaSubtab('photos')">
+          📸 Live Action Photo Wall (<span id="panIndiaPhotoCount">0</span>)
+        </button>
+        <button class="subtab-btn" id="subtabCampaignsBtn" onclick="switchPanIndiaSubtab('campaigns')">
+          🗺️ Active All-India Campaigns (<span id="panIndiaCampsCount">0</span>)
+        </button>
+      </div>
+
+      <!-- TAB 1: Live Photo Wall -->
+      <div id="subtabSectionPhotos">
+        <div class="filters-bar" style="margin-bottom:1.5rem;">
+          <div class="filter-group" id="panIndiaPhotoCategoryFilters">
+            <button class="filter-chip active" onclick="filterPanIndiaPhotoCategory('all')">All Photos</button>
+            <button class="filter-chip" onclick="filterPanIndiaPhotoCategory('Tea Plantation')">🍃 Tea Plantation</button>
+            <button class="filter-chip" onclick="filterPanIndiaPhotoCategory('Environment')">🌳 Tree Plantation</button>
+            <button class="filter-chip" onclick="filterPanIndiaPhotoCategory('Cleanliness')">🧹 Cleanliness Drives</button>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openUploadPhotoModal()">+ Upload Your Photo</button>
+        </div>
+
+        <!-- Photo Stream Grid -->
+        <div class="photo-stream-grid" id="panIndiaPhotoGrid">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <!-- TAB 2: All-India Campaigns Directory -->
+      <div id="subtabSectionCampaigns" style="display:none;">
+        <div class="card-grid" id="panIndiaCampaignsGrid">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Modal 1: Register for Campaign (FR-06) -->
+  <div id="registerModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'registerModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="regModalTitle">Register as Volunteer</h3>
+        <button class="modal-close-btn" onclick="closeModal('registerModal')">&times;</button>
+      </div>
+      <form id="campaignRegisterForm" onsubmit="handleRegistrationSubmit(event)">
+        <input type="hidden" id="regCampaignId">
+        <div class="form-group">
+          <label class="form-label">Selected Activity</label>
+          <p id="regCampaignDetail" style="font-weight:600; color:var(--primary-700); font-size:0.95rem;"></p>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="required">*</span></label>
+            <input type="text" id="regFullName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mobile (for SMS reminder)</label>
+            <input type="tel" id="regMobile" class="form-control" placeholder="e.g. 9876543210" pattern="[0-9]{10}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Locality / College Department</label>
+          <input type="text" id="regLocality" class="form-control" placeholder="e.g. CSE Dept, 2nd Year / Dighori">
+        </div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="regConsentSafety" required>
+            <label for="regConsentSafety">
+              I agree to abide by the organizer's safety guidelines and wear proper footwear/gloves during the activity.
+            </label>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm & Get Digital Pass 🎟️</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Digital Ticket / Pass (FR-06, REG-6) -->
+  <div id="ticketModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'ticketModal')">
+    <div class="modal-box" style="text-align:center;">
+      <div class="modal-header">
+        <h3 class="modal-title">🎉 Registration Confirmed!</h3>
+        <button class="modal-close-btn" onclick="closeModal('ticketModal')">&times;</button>
+      </div>
+      <div class="ticket-wrapper">
+        <span class="ticket-badge">OFFICIAL JAGRUK VOLUNTEER PASS</span>
+        <h4 id="ticketCampaignTitle" style="font-size:1.1rem; margin-top:0.25rem;">Cleanliness Drive</h4>
+        <div class="ticket-code" id="ticketCodeDisplay">JAG-7829-VOL</div>
+        <p id="ticketVolunteerName" style="font-size:0.9rem; font-weight:600;">Volunteer: Rahul Sharma</p>
+        <p id="ticketDateArea" style="font-size:0.8rem; opacity:0.9; margin-top:0.25rem;">Sunday, 9:00 AM @ Dighori Square</p>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+        Show this pass or ticket code to the organizer during on-day check-in.
+      </p>
+      <button class="btn btn-primary" onclick="closeModal('ticketModal')">Done / Save Pass</button>
+    </div>
+  </div>
+
+  <!-- Modal 3: Create Campaign (Awareness-to-Action) -->
+  <div id="createCampaignModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'createCampaignModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">⚡ Create a Volunteer Campaign</h3>
+        <button class="modal-close-btn" onclick="closeModal('createCampaignModal')">&times;</button>
+      </div>
+      <form id="createCampaignForm" onsubmit="handleCreateCampaignSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Link to an Accepted Community Need (Optional)</label>
+          <select id="campSourceReport" class="form-select" onchange="autoFillFromReport(this.value)">
+            <option value="">-- Standalone Campaign (or select a need to link) --</option>
+            <!-- Injected from accepted reports -->
+          </select>
+          <p class="form-hint">🔗 This links the community problem directly to this action campaign!</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Campaign Title <span class="required">*</span></label>
+          <input type="text" id="campTitle" class="form-control" placeholder="e.g. Dighori Square Cleanliness & Waste Drive" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category <span class="required">*</span></label>
+            <select id="campCategory" class="form-select" required>
+              <option value="Cleanliness">🧹 Cleanliness & Waste</option>
+              <option value="Health">🩺 Health & Hygiene</option>
+              <option value="Safety">💡 Safety & Streetlight</option>
+              <option value="Environment">🌳 Environment & Greenery</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Volunteer Capacity (Spots) <span class="required">*</span></label>
+            <input type="number" id="campCapacity" class="form-control" min="5" max="100" value="20" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Approximate Area / Venue <span class="required">*</span></label>
+            <input type="text" id="campArea" class="form-control" placeholder="e.g. Telephone Nagar Chowk" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date & Time <span class="required">*</span></label>
+            <input type="datetime-local" id="campDateTime" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Action Goal & Description <span class="required">*</span></label>
+          <textarea id="campGoal" class="form-textarea" rows="2" placeholder="e.g. Clear 300kg of uncollected plastic waste, segregate recyclables and paint dustbins." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Safety Notes & Supplies Needed</label>
+          <input type="text" id="campSafety" class="form-control" placeholder="e.g. Wear sturdy shoes; gloves and trash bags provided; bring personal water." value="Wear closed-toe shoes; heavy-duty gloves provided on-site.">
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('createCampaignModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Publish Campaign 🚀</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Submit Impact Report (Trust & Evidence Workflow) -->
+  <div id="impactReportModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'impactReportModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">📈 Submit Activity Impact Report</h3>
+        <button class="modal-close-btn" onclick="closeModal('impactReportModal')">&times;</button>
+      </div>
+      <form id="impactReportForm" onsubmit="handleImpactReportSubmit(event)">
+        <input type="hidden" id="impactCampId">
+        <div class="form-group">
+          <label class="form-label">Campaign</label>
+          <p id="impactCampTitle" style="font-weight:700; color:var(--primary-700);"></p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Verified Participants / Volunteers <span class="required">*</span></label>
+            <input type="number" id="impactParticipants" class="form-control" min="1" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Output Metric Name <span class="required">*</span></label>
+            <input type="text" id="impactMetricName" class="form-control" placeholder="e.g. Kg Waste Cleared / Saplings Planted" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Metric Before (Baseline)</label>
+            <input type="number" id="impactBefore" class="form-control" placeholder="e.g. 500 (kg accumulated)" step="any">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Metric After (Result) <span class="required">*</span></label>
+            <input type="number" id="impactAfter" class="form-control" placeholder="e.g. 0 (cleared)" step="any" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Executive Outcome Summary <span class="required">*</span></label>
+          <textarea id="impactSummary" class="form-textarea" rows="3" placeholder="Describe the direct community outcomes, resident interactions, and follow-ups..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Evidence Photo URL (Before/After Proof)</label>
+          <input type="url" id="impactEvidenceUrl" class="form-control" placeholder="https://images.unsplash.com/...">
+          <p class="form-hint">Moderators will verify this evidence before publishing to the public Impact Ledger.</p>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('impactReportModal')">Cancel</button>
+          <button type="submit" class="btn btn-accent">Submit for Verification 🛡️</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Reject Reason Prompt -->
+  <div id="rejectModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'rejectModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">⚠️ Moderation Rejection</h3>
+        <button class="modal-close-btn" onclick="closeModal('rejectModal')">&times;</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mandatory Rejection Reason (FR-04)</label>
+        <select id="rejectReasonSelect" class="form-select" onchange="toggleCustomReason(this.value)">
+          <option value="Duplicate of existing issue">Duplicate of existing issue in this area</option>
+          <option value="Emergency issue - directed to helpline">Emergency issue (must be reported to official helpline)</option>
+          <option value="Private dispute / personal property">Private property dispute (out of civic scope)</option>
+          <option value="Contains sensitive PII or identifiable private data">Contains sensitive PII or identifiable private data</option>
+          <option value="Insufficient details to locate area">Insufficient details to locate area</option>
+          <option value="Custom">Other (Custom reason)</option>
+        </select>
+        <textarea id="rejectCustomReason" class="form-textarea" rows="2" style="margin-top:0.5rem; display:none;" placeholder="Enter specific reason..."></textarea>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+        <button class="btn btn-secondary" onclick="closeModal('rejectModal')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmRejection()">Confirm Rejection & Log</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Community Feedback (FR-10) -->
+  <div id="feedbackModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'feedbackModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">⭐ Community Activity Feedback</h3>
+        <button class="modal-close-btn" onclick="closeModal('feedbackModal')">&times;</button>
+      </div>
+      <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+        <input type="hidden" id="feedbackCampId">
+        <div class="form-group">
+          <label class="form-label">Overall Experience Rating (1–5 Stars)</label>
+          <select id="feedbackRating" class="form-select">
+            <option value="5">⭐⭐⭐⭐⭐ 5 - Excellent Organization & Impact</option>
+            <option value="4">⭐⭐⭐⭐ 4 - Good community effort</option>
+            <option value="3">⭐⭐⭐ 3 - Average, need better supplies</option>
+            <option value="2">⭐⭐ 2 - Poor coordination</option>
+            <option value="1">⭐ 1 - Not helpful</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Did this activity improve local understanding/awareness of the issue?</label>
+          <select id="feedbackAwareness" class="form-select">
+            <option value="Yes">Yes, significantly improved</option>
+            <option value="Somewhat">Somewhat helped</option>
+            <option value="No">No difference</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Suggestions / Comments</label>
+          <textarea id="feedbackComments" class="form-textarea" rows="3" placeholder="Share your suggestions for next time..."></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('feedbackModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 7: Upload Campaign Photo (Pan-India Action Wall) -->
+  <div id="uploadPhotoModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'uploadPhotoModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">📸 Upload Campaign Action Photo</h3>
+        <button class="modal-close-btn" onclick="closeModal('uploadPhotoModal')">&times;</button>
+      </div>
+      <form id="uploadPhotoForm" onsubmit="handlePhotoUploadSubmit(event)">
+        
+        <!-- Campaign Selection -->
+        <div class="form-group">
+          <label class="form-label">Related Campaign <span class="required">*</span></label>
+          <select id="uploadPhotoCampSelect" class="form-select" onchange="autoFillPhotoLocation(this.value)" required>
+            <option value="">-- Select active campaign (or independent action) --</option>
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+
+        <!-- Volunteer & Location -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Participant / Team Name <span class="required">*</span></label>
+            <input type="text" id="uploadVolunteerName" class="form-control" placeholder="e.g. Debojit Saikia & Youth Team" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category <span class="required">*</span></label>
+            <select id="uploadPhotoCategory" class="form-select" required>
+              <option value="Tea Plantation">🍃 Tea Plantation & Soil Revival</option>
+              <option value="Environment">🌳 Tree Plantation & Greenery</option>
+              <option value="Cleanliness">🧹 River / Public Cleanliness Drive</option>
+              <option value="Health">🩺 Health & Sanitation Walk</option>
+              <option value="Safety">💡 Safety & Lighting Vigil</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">State in India <span class="required">*</span></label>
+            <select id="uploadState" class="form-select" required>
+              <option value="Assam">Assam</option>
+              <option value="Maharashtra" selected>Maharashtra</option>
+              <option value="Kerala">Kerala</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="Delhi-NCR">Delhi-NCR</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Goa">Goa</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Other">Other State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">City / Town <span class="required">*</span></label>
+            <input type="text" id="uploadCity" class="form-control" placeholder="e.g. Jorhat / Nagpur / Munnar" required>
+          </div>
+        </div>
+
+        <!-- File Upload / Dropzone & Presets -->
+        <div class="form-group">
+          <label class="form-label">Campaign Photo Proof <span class="required">*</span></label>
+          <div class="photo-dropzone" onclick="document.getElementById('photoFileInput').click()">
+            <div class="photo-dropzone-icon">📷</div>
+            <div class="photo-dropzone-text">Click to choose image file from device or drag & drop</div>
+            <div class="photo-dropzone-sub">Supports JPG, PNG, WEBP (Instant browser preview)</div>
+          </div>
+          <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="handlePhotoFileInput(event)">
+
+          <!-- Live Preview Thumbnail -->
+          <div class="photo-preview-wrap" id="photoPreviewWrap">
+            <img id="photoPreviewImg" src="" alt="Action preview">
+            <button type="button" class="photo-preview-remove" onclick="removePhotoPreview()" title="Remove photo">&times;</button>
+          </div>
+
+          <!-- Quick Sample Presets (For instant demonstration) -->
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.6rem;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="setSampleUploadPhoto('assam-tea')">🍃 Assam Tea Garden</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="setSampleUploadPhoto('munnar-tea')">⛰️ Munnar Tea Hills</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="setSampleUploadPhoto('nagpur-tree')">🌳 Nagpur Tree Drive</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="setSampleUploadPhoto('darjeeling-tea')">🍵 Darjeeling Terraces</button>
+          </div>
+          <input type="url" id="uploadPhotoUrl" class="form-control" style="margin-top:0.5rem;" placeholder="Or paste an image URL directly">
+        </div>
+
+        <!-- Metric and Story -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Impact Metric / Count</label>
+            <input type="text" id="uploadPhotoMetric" class="form-control" placeholder="e.g. 50 Tea Saplings Planted / 120 kg Waste Cleared">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Story / Caption <span class="required">*</span></label>
+          <textarea id="uploadPhotoCaption" class="form-textarea" rows="2" placeholder="Tell the story: What did you do, how did the community react, and what was achieved?" required></textarea>
+        </div>
+
+        <!-- Consent Checkbox -->
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="uploadConsent" required>
+            <label for="uploadConsent">
+              <strong>Consent:</strong> I confirm this photo was taken during genuine civic/environmental activity and participants consented to public display on JAGRUK.
+            </label>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.25rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('uploadPhotoModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Publish to Action Wall 🚀</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 8: Green Hero Citizen Certificate -->
+  <div id="certificateModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event, 'certificateModal')">
+    <div class="modal-box" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🏅 Citizen Green Action Certificate</h3>
+        <button class="modal-close-btn" onclick="closeModal('certificateModal')">&times;</button>
+      </div>
+
+      <!-- Printable Certificate Layout -->
+      <div class="certificate-container" id="printableCertArea">
+        <div class="certificate-watermark">JAGRUK</div>
+        <div class="cert-emblem">🌱</div>
+        <h3 class="cert-header">Certificate of Green Action</h3>
+        <p class="cert-sub">JAGRUK — All-India Community Awareness & Action Network</p>
+
+        <p style="font-size:0.85rem; color:#475569; margin-bottom:0.5rem;">This official certificate is proudly presented to</p>
+        <div class="cert-recipient" id="certVolunteerName">Rahul Sharma</div>
+
+        <p class="cert-statement" id="certStatement">
+          for outstanding civic participation and environmental stewardship in the nationwide campaign:
+          <br><strong id="certCampaignTitle" style="color:#0f766e;">Assam Heritage Tea Plantation & Soil Revival Campaign</strong>.
+        </p>
+
+        <div class="cert-details-box">
+          <div class="cert-details-item">
+            <strong>Location</strong>
+            <span id="certLocation">Jorhat, Assam</span>
+          </div>
+          <div class="cert-details-item">
+            <strong>Impact Achieved</strong>
+            <span id="certMetric">150 Tea Saplings Planted</span>
+          </div>
+          <div class="cert-details-item">
+            <strong>Certificate ID</strong>
+            <span id="certCode">JAG-IN-2026-8942</span>
+          </div>
+        </div>
+
+        <div class="cert-footer-row">
+          <div style="text-align:left;">
+            <p style="font-size:0.75rem; color:#64748b; margin:0;">Date of Action</p>
+            <strong style="font-size:0.85rem; color:#0f172a;" id="certDate">Oct 21, 2026</strong>
+          </div>
+
+          <div class="cert-seal">
+            <span>VERIFIED</span>
+            <span style="font-size:0.55rem;">ACTION</span>
+          </div>
+
+          <div style="text-align:right;">
+            <p style="font-size:0.75rem; color:#64748b; margin:0;">Verified Authority</p>
+            <strong style="font-size:0.85rem; color:#0f172a;">JAGRUK Action Cell</strong>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+        <button class="btn btn-secondary" onclick="closeModal('certificateModal')">Close</button>
+        <button class="btn btn-primary" onclick="printCertificate()">🖨️ Print / Save Certificate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guided 60-Second Demo Bar (PRD Section 19) -->
+  <div id="demoOverlayBar" class="demo-overlay">
+    <div>
+      <strong id="demoStepTitle" style="color:var(--primary-700);">🎬 Step 1 of 7: Home & Concept</strong>
+      <p id="demoStepDesc" style="font-size:0.8rem; color:var(--text-muted); margin:0;">Welcome to JAGRUK! Click Next to step through the PRD flow.</p>
+    </div>
+    <div style="display:flex; gap:0.4rem;">
+      <button class="btn btn-primary btn-sm" onclick="advanceDemoStep()">Next Step →</button>
+      <button class="btn btn-secondary btn-sm" onclick="stopDemoTour()">Exit Tour</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p><strong>JAGRUK Platform</strong> — Community Engagement Project (CEP), Session 2025–26</p>
+      <p style="margin-top:0.25rem;">Suryodaya College of Engineering & Technology, Vihirgaon, Umrer Road, Nagpur (M.S.)</p>
+      <ul class="footer-links">
+        <li><a href="javascript:void(0)" onclick="switchView('home')">Home</a></li>
+        <li><a href="javascript:void(0)" onclick="switchView('explore')">Activities</a></li>
+        <li><a href="javascript:void(0)" onclick="switchView('needs')">Need Board</a></li>
+        <li><a href="javascript:void(0)" onclick="switchView('impact')">Impact Ledger</a></li>
+        <li><a href="javascript:void(0)" onclick="resetDemoData()">Reset Demo Data</a></li>
+      </ul>
+      <p style="margin-top:1rem; font-size:0.75rem; color:var(--text-subtle);">Built with HTML5, Vanilla CSS & Modern JavaScript. Adheres to DPDP Act privacy guidelines & WCAG AA standards.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

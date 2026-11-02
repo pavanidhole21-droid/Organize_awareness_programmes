@@ -1,0 +1,19 @@
+{
+  "name": "jagruk-cep-platform",
+  "version": "1.0.0",
+  "description": "JAGRUK — Community Awareness & Action Network (CEP Project)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "cep",
+    "community-engagement",
+    "jagruk",
+    "action-network",
+    "nagpur"
+  ],
+  "author": "CEP Team",
+  "license": "MIT"
+}
